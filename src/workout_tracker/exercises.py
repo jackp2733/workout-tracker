@@ -16,19 +16,19 @@ class Exercise:
 
 
 class CardioExercise(Exercise):
-    def __init__(self, name, dist, dur, date=None):
+    def __init__(self, name, *, distance, duration, date=None):
         super().__init__(name, date)
-        self.dist = dist
-        self.dur = dur
+        self.distance = distance
+        self.duration = duration
 
     def calculate_calories(self):
-        return self.dist * 100
+        return self.distance * 100
 
     def get_duration(self):
-        return self.dur
+        return self.duration
 
     def __str__(self):
-        return f"{self.name} ({self.dist} miles, {self.dur} min): {self.calculate_calories():.0f} calories"
+        return f"{self.name} ({self.distance} miles, {self.duration} min): {self.calculate_calories():.0f} calories"
 
 
 class StrengthExercise(Exercise):
@@ -49,20 +49,20 @@ class StrengthExercise(Exercise):
 
 
 class FlexibilityExercise(Exercise):
-    MULTIPLIERS = {"low": 1.0, "medium": 1.5, "high": 2.0}
+    INTENSITY_MULTIPLIERS = {"low": 1.0, "medium": 1.5, "high": 2.0}
 
-    def __init__(self, name, dur, intensity="medium", date=None):
+    def __init__(self, name, *, duration, intensity="medium", date=None):
         super().__init__(name, date)
-        self.dur = dur
+        self.duration = duration
         self.intensity = intensity.lower()
-        if self.intensity not in self.MULTIPLIERS:
+        if self.intensity not in self.INTENSITY_MULTIPLIERS:
             raise ValueError("Intensity must be 'low', 'medium', or 'high'")
 
     def calculate_calories(self):
-        return self.dur * 2.5 * self.MULTIPLIERS[self.intensity]
+        return self.duration * 2.5 * self.INTENSITY_MULTIPLIERS[self.intensity]
 
     def get_duration(self):
-        return self.dur
+        return self.duration
 
     def __str__(self):
-        return f"{self.name} ({self.dur} min, {self.intensity} intensity): {self.calculate_calories():.0f} calories"
+        return f"{self.name} ({self.duration} min, {self.intensity} intensity): {self.calculate_calories():.0f} calories"
